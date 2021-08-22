@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeknote.mapper.UserMapper">
+  <cache/>
+
+  <insert id="insert" parameterType = "user" >
+    insert into user(name, age, sex) values(#{name}, #{age}, #{sex})
+  </insert>
+
+  <select id="findAll" resultType="user">
+    select name, age, sex
+    from user
+  </select>
+
+  <select id="findByName" parameterType="string" resultType="user">
+    select name, age, sex
+    from user
+    where name = #{name}
+  </select>
+
+  <select id="findByParam" parameterType="user" resultType="user" >
+    select *
+    from user
+    <where>
+      <if test="name != null">
+        name = #{name}
+      </if>
+      <if test="age != null">
+        age = #{age}
+      </if>
+      <if test="sex != null">
+        sex = #{sex}
+      </if>
+    </where>
+  </select>
+
+</mapper>
